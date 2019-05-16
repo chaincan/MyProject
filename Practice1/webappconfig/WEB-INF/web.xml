@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
+	<servlet>
+   <servlet-name>userInfo</servlet-name>
+   <servlet-class>com.caucho.hessian.server.HessianServlet</servlet-class>
+    <init-param>
+      <!-- 配置服务实现类， home-class固定写法-->
+      <param-name>home-class</param-name>
+      <param-value>com.hessian.rmiserver.MyHessianServiceImp</param-value>
+    </init-param>
+    <init-param>
+      <!-- 配置服务的接口，参数名称home-api是固定写法-->
+      <param-name>home-api</param-name>
+      <param-value>com.hessian.rmihessian.IMyHessianService</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>userInfo</servlet-name>
+    <url-pattern>/userInfo</url-pattern>
+  </servlet-mapping>
+</web-app>
