@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="practice1" default="release" basedir="."> 
+
+	<property file="build.properties"></property>
+	
+	<target name="init">
+		<echo message="init"></echo>
+		<delete dir="${basedir}/practice1"></delete>
+		<mkdir dir="${basedir}/practice1"></mkdir>
+	</target>
+	<!--编译 -->
+	<target name="compile" depends="init">
+		<echo message="compile"></echo>
+		<!-- classpath的路径指定 -->
+		<path id="compile.classpath">
+			<fileset dir="${basedir}/../lib" includes="*.jar"></fileset>
+			<fileset dir="${basedir}/../webappconfig/WEB-INF/lib" includes="*.jar"></fileset>
+		</path>
+		<javac srcdir="${basedir}/../src" destdir="${basedir}/practice1" includeantruntime="on">
+			<classpath refid="compile.classpath"></classpath>
+		</javac>
+	</target>
+	<!-- copy webappconfig -->
+	<target name="copy-config" depends="compile">
+		<echo message="copy-config"></echo>
+		<copy todir="${basedir}/practice1/">
+			<fileset dir="${basedir}/../webappconfig"></fileset>
+		</copy>
+	</target>
+	<!-- ssh linux -->
+	<!-- exec是在ant脚本所在的机器上执行命令,sshexec是远程连接到别的机器上执行命令-->
+	<!-- scp是远程拷贝，需要jsch-版本.jar -->
+	<target name="release" depends="copy-config">
+		<sshexec command="rm -rf ${releaseserver.antbuild}" host="${releaseserver.address}" username="${releaseserver.loginUser}" password="${releaseserver.loginPassword}" port="${releaseserver.port}" trust="true"/>
+		<sshexec command="mkdir ${releaseserver.antbuild}" host="${releaseserver.address}" username="${releaseserver.loginUser}" password="${releaseserver.loginPassword}" port="${releaseserver.port}" trust="true"/>
+		<scp todir="${releaseserver.loginUser}:${releaseserver.loginPassword}@${releaseserver.address}:${releaseserver.antbuild}" trust="true" verbose="yes">
+			<fileset dir="${basedir}/practice1"></fileset>
+		</scp>
+	</target>
+	
+</project>

@@ -1,0 +1,17 @@
+#macrodef 宏定义，任务的特性通过@{}展开而不是${}
+
+#exec可以调用系统命令，比如：
+<target name="test">
+    <exec executable="cmd.exe">
+        <arg line="/c dir"/>
+    </exec>
+</target>
+上边的这段代码所起到的作用是打开命令输入框，/c转到c盘根目录，执行dir命令。
+
+#sequential是Ant内置任务，用于包含其他的ant任务，sequential是一个容器任务
+
+
+
+
+
+
