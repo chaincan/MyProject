@@ -1,7 +1,4 @@
 package com.practice.basic;
-import java.lang.reflect.Method;
-
-
 
 public class Test015_threadlocal {
 	public static void main(String[] args) {
