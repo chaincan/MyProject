@@ -1,0 +1,17 @@
+log4j配置方式有两种：
+
+1.使用log4j.xml配置，在web.xml中加载
+<context-param> 
+  <param-name>log4jConfigLocation</param-name> 
+  <param-value>WEB-INF/classes/log4j.xml</param-value> 
+</context-param> 
+<listener>
+	<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+</listener>
+
+2.使用log4j.properties文件配置，放在src目录下，通过资源类对资源进行加载
+PropertyConfigurator.configure( "log4j.properties " );也可在web.xml中配置
+<context-param> 
+  <param-name>log4jConfigLocation</param-name> 
+  <param-value>WEB-INF/classes/log4j.properties</param-value> 
+</context-param>
